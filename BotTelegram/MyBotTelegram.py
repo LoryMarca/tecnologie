@@ -12,9 +12,9 @@ if result.status_code == 200:
     dato = result.json()
     if dato["ok"]:
         for messaggio in dato["result"]:
-            if (str(messaggio["message"]["text"]).lower().find("dambro napoletano") != -1):
+            if (str(messaggio["message"]["text"]).lower().find("ciao") != -1):
                 # rispondi
-                text = "siiiii e down"
+                text = "lagre è down"
                 chatID=messaggio["message"]["chat"]["id"]
                 
                 print(text)
