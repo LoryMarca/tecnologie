@@ -14,7 +14,7 @@ if result.status_code == 200:
         for messaggio in dato["result"]:
             if (str(messaggio["message"]["text"]).lower().find("ciao") != -1):
                 # rispondi
-                text = "lagre è down"
+                text = "ciao anche a te, sono il tuo bot telegra, come posso aiutarti?"
                 chatID=messaggio["message"]["chat"]["id"]
                 
                 print(text)
