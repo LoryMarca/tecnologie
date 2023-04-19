@@ -4,7 +4,7 @@ import csv
 import requests
 from database import execute_query
 url = "https://www.mise.gov.it/images/exportCSV/anagrafica_impianti_attivi.csv" # url del file csv
-filecsv = "database\\files\\anagrafica_impianti_attivi.csv"# nome del file csv
+filecsv = "database\\files\\filecsv.csv"# nome del file csv
 
 class PrendeCSV:#classe per la lettura del file csv
         
