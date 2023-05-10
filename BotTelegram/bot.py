@@ -4,9 +4,17 @@ import requests
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 import myTelegram
+import time
 
 t = myTelegram.myTelegram(TOKEN)
 
+while True:
+    messages = t.getUpdates()
+    if len(messages) > 0:
+        for messaggio in messages:
+            if str(messaggio["message"]["text"]).lower().find("ciao")!=-1:
+                t.sendMessage(messaggio["message"]["chat"]["id"], "ciao anche a te")
+    time.sleep(1)
 
 exit()
 # Inizializzazione del bot Telegram

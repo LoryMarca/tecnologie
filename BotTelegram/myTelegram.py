@@ -7,28 +7,43 @@ class myTelegram:
         self.URL=f"https://api.telegram.org/bot{self.TOKEN}/"
         self.servizio="getUpdates"
         self.servizioSand="sendMessage"
-        self.result=requests.get(self.URL+self.servizio)
-        if self.result.status_code==200:
-            self.dato=self.result.json()
-            if self.dato["ok"]:
-                for messaggio in self.dato["result"]:
-                    if (str(messaggio["message"]["text"]).lower().find("ciao")!=-1):
-                        # rispondi
-                        text="vero"
-                        chatID=messaggio["message"]["chat"]["id"]
-                        
-                        print(text)
-                        print(chatID)
-                        
-                        requests.get(self.URL+self.servizioSand,params={"chat_id":chatID,"text":text})
-                        
-                        self.result=requests.get(self.URL+self.servizio,params={"offset":self.dato["result"][-1]})#
+        
             
                         
     def getUpdates(self):
-        pass
-    def sendMessage(self):
-        pass
+        
+        output = []
+        result=requests.get(self.URL+"getUpdates")
+        
+        if result.status_code==200:
+            dato=result.json()
+            
+            if dato["ok"]:
+                
+                if len(dato["result"] > 0):
+                    for messaggio in dato["result"]:
+                        output.append(messaggio)
+                    lastUpdateId = dato["result"][-1]["update_id"]
+                    requests.get(self.URL+"getUpdates", params={"offset":lastUpdateId})     
+           
+                
+                    
+        return output
+        """
+        if (str(messaggio["message"]["text"]).lower().find("ciao")!=-1):
+            # rispondi
+            text="vero"
+            chatID=messaggio["message"]["chat"]["id"]
+            
+            print(text)
+            print(chatID)
+            
+            result=requests.get(self.URL+self.servizio,params={"offset":dato["result"][-1]})"""
+
+    def sendMessage(self, chat_id, messaggio):
+        response = requests.get(self.URL+'sendMessage',params={"chat_id":chat_id,"text":messaggio})
+        return response
+        
     def start(self):
         pass
     def echo(self):
@@ -45,5 +60,4 @@ class myTelegram:
         pass
     def image(self):
         pass
-    def getUpdates(self): 
-        pass
+s
