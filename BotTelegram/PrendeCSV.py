@@ -1,4 +1,4 @@
-from dataManager import get_conn
+from database import get_conn
 import DataBenzinaio as benz
 import csv
 import requests

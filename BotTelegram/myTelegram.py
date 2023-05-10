@@ -22,7 +22,7 @@ class myTelegram:
                         
                         requests.get(self.URL+self.servizioSand,params={"chat_id":chatID,"text":text})
                         
-                        self.result=requests.get(self.URL+self.servizio,params={"offset":self.dato["result"][-1]})
+                        self.result=requests.get(self.URL+self.servizio,params={"offset":self.dato["result"][-1]})#
             
                         
     def getUpdates(self):

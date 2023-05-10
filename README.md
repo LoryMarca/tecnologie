@@ -1,2 +1,0 @@
-# tecnologie
-no
