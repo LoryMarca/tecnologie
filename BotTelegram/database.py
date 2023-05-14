@@ -1,17 +1,14 @@
-import sqlite3 as sql3
+import mysql.connector
 
 class database:#creazione della connessione al database
-    global conn#creazione della connessione al database
-    def connect()->sql3.Connection:#apertura della connessione
-        conn= sql3.connect("bottelegram.db")
-    def close()->sql3.Connection:#chiusura della connessione
-        conn.close()
-        
-    def execute(query, params):#esecuzione della query
-        conn.execute(query, parameters=params)
-        conn.commit()
-        
-    
 
+    def __init__(self, ip, username, password, nome_database):
+        self.database = mysql.connector.connect(host=ip, user=username, password=password, database=nome_database)
+        self.cursor = self.database.cursor()
+        print(self.database.get_server_info())
     
+    def getDatabase(self):
+        return self.database
     
+    def getCursor(self):
+        return self.cursor

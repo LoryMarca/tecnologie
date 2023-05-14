@@ -1,5 +1,6 @@
 class DataBenzinaio:#classe per la lettura del file csv
-    def init(self, idBenzinaio, Gestore, Bandiera, TipoBenzinaio, NomeBenzinaio, Indirizzo, Comune, Provincia, Latitudine, Longitudine):
+    
+    def __init__(self, idBenzinaio, Gestore, Bandiera, TipoBenzinaio, NomeBenzinaio, Indirizzo, Comune, Provincia, Latitudine, Longitudine):
         self.idBenzinaio = idBenzinaio
         self.Gestore = Gestore
         self.Bandiera = Bandiera
