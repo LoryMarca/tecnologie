@@ -5,7 +5,7 @@ import math
 
 
 class myTelegram:
-    def __init__(self,token):
+    def __init__(self,token):#inizializzazione del bot
         self.TOKEN=token
         self.URL=f"https://api.telegram.org/bot{self.TOKEN}/"
         self.servizio="getUpdates"
@@ -14,7 +14,7 @@ class myTelegram:
         
             
                         
-    def getUpdates(self):
+    def getUpdates(self):#funzione per leggere i messaggi
         
         output = []
         result=requests.get(self.URL+"getUpdates")
@@ -46,7 +46,7 @@ class myTelegram:
             
             result=requests.get(self.URL+self.servizio,params={"offset":dato["result"][-1]})"""
 
-    def sendMessage(self, chat_id, messaggio):
+    def sendMessage(self, chat_id, messaggio):#funzione per inviare i messaggi
         response = requests.get(self.URL+'sendMessage',params={"chat_id":chat_id,"text":messaggio})
         return response
         
@@ -58,21 +58,22 @@ class myTelegram:
         pass
     
     
-    def CaricaDati(self):
+    def CaricaDati(self):#carica i dati sul db
         PrendeCSV.PrendeCSV.scaricaDati()
-        db = self.database.getDatabase()
+        db = self.database.getDatabase()#connessione al db
         cursore = self.database.getCursor()
-        dataBenzinai = PrendeCSV.PrendeCSV.get_data_benzinai()
+        dataBenzinai = PrendeCSV.PrendeCSV.get_data_benzinai()#carica i dati
         for benzinaio in dataBenzinai:
             
-            for key in benzinaio.keys():
+            for key in benzinaio.keys():#elimina le virgole
                 benzinaio[key] = str(benzinaio[key]).replace('"','')
             
             sql = f"""INSERT IGNORE INTO impianti (idImpianto, Gestore, TipoImpianto, NomeImpianto, Indirizzo, Comune, Provincia, Latitudine, Longitudine) VALUES ("{benzinaio['idImpianto']}", "{benzinaio['Gestore']}", "{benzinaio['Tipo Impianto']}", "{benzinaio['Nome Impianto']}", "{benzinaio['Indirizzo']}", "{benzinaio['Comune']}", "{benzinaio['Provincia']}", "{benzinaio['Latitudine']}", "{benzinaio['Longitudine']}")"""            
-            cursore.execute(sql)
+            cursore.execute(sql)#inserisce i dati
         db.commit()
         print('Impianti caricati')
         
+        #mo fa le stessa cosa ma per i prezzi
         dataPrezzi = PrendeCSV.PrendeCSV.get_data_prezzi()
         for prezzo in dataPrezzi:
             
@@ -85,7 +86,7 @@ class myTelegram:
         print('Prezzi caricati')
                 
         
-    def processaMessaggio(self, messaggio):
+    def processaMessaggio(self, messaggio):#vede che messaggio c'è e fa cose in base ad esso
         chatID=messaggio["message"]["chat"]["id"]
         database = self.database.getDatabase()
         cursore = database.cursor()
@@ -95,12 +96,12 @@ class myTelegram:
             message_text = messaggio["message"]["text"]
         
  
-        if message_text == "/start":
+        if message_text == "/start":#qua salva l'utente(dato che botfather chiede lui direttamente lo /start per iniziare il bot no serve scriverlo due volte ma legge direttamente quello)
             sql = f"""INSERT INTO utente (user, chatID) VALUES ("{messaggio['message']["from"]["username"]}", "{chatID}")"""
             cursore.execute(sql)
             database.commit()
             
-        elif message_text == "/getbenzinai":  
+        elif message_text == "/getbenzinai":#dopo questo comando il bot ti chiederà di invialgli la posizione
             sql =f"UPDATE utente SET stato='richiediPosizione' WHERE chatID LIKE '{chatID}'"        
             cursore.execute(sql)
             database.commit()

@@ -1,3 +1,5 @@
+#in verità non serve questo file ma l'ho fatto quindi lo tengo :)
+
 class DataBenzinaio:#classe per la lettura del file csv
     
     def __init__(self, idBenzinaio, Gestore, Bandiera, TipoBenzinaio, NomeBenzinaio, Indirizzo, Comune, Provincia, Latitudine, Longitudine):

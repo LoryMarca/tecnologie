@@ -6,4 +6,4 @@ import mysql
 
 t = myTelegram.myTelegram(TOKEN)
 
-t.CaricaDati()
+t.CaricaDati()#carica i dati sul db
