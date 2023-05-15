@@ -59,9 +59,9 @@ class myTelegram:
     
     
     def CaricaDati(self):
-        #PrendeCSV.PrendeCSV.scaricaDati()
+        PrendeCSV.PrendeCSV.scaricaDati()
         db = self.database.getDatabase()
-        cursore = self.database.getCursore()
+        cursore = self.database.getCursor()
         dataBenzinai = PrendeCSV.PrendeCSV.get_data_benzinai()
         for benzinaio in dataBenzinai:
             
@@ -100,7 +100,7 @@ class myTelegram:
             cursore.execute(sql)
             database.commit()
             
-        elif message_text == "/getBenzinai":  
+        elif message_text == "/getbenzinai":  
             sql =f"UPDATE utente SET stato='richiediPosizione' WHERE chatID LIKE '{chatID}'"        
             cursore.execute(sql)
             database.commit()

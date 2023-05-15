@@ -5,6 +5,7 @@ import requests
 #from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 import myTelegram
 import time
+import mysql
 
 t = myTelegram.myTelegram(TOKEN)
 
