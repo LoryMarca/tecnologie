@@ -100,14 +100,14 @@ class myTelegram:
             sql = f"""INSERT INTO utente (user, chatID) VALUES ("{messaggio['message']["from"]["username"]}", "{chatID}")"""
             cursore.execute(sql)
             database.commit()
-
-        #elif message_text == "/modificaserbatoio":
-            #modifica in bse all'user il serbatoio e la benzina
-         #   sql=f"UPDATE utente SET serbatoio='{messaggio['message']['text']}' WHERE chatID LIKE '{chatID}'"
-          #  cursore.execute(sql)
-           # database.commit()
-            #self.sendMessage(chatID, "Modifica il serbatoio")
-
+        
+#        elif message_text == "/modificaserbatoio":#dopo questo comando il bot ti chiederà di invialgli la posizione
+#            sql =f"UPDATE utente SET stato='modserbatoio' WHERE chatID LIKE '{chatID}'"        #
+#            cursore.execute(sql)
+#            database.commit()
+#            self.sendMessage(chatID, "Dammi i dati del tuo serbatoio")
+#            pass
+            
         elif message_text == "/getbenzinai":#dopo questo comando il bot ti chiederà di invialgli la posizione
             sql =f"UPDATE utente SET stato='richiediPosizione' WHERE chatID LIKE '{chatID}'"        
             cursore.execute(sql)
@@ -154,7 +154,11 @@ class myTelegram:
                     sql = f'UPDATE utente SET stato=NULL WHERE chatID LIKE "{chatID}"'
                     cursore.execute(sql)
                     database.commit()
-            
+
+
+            #elif statoUtente == 'modificaserbatoio'
+
+
             else:
                 self.sendMessage(chatID, "Nessun comando")
         pass

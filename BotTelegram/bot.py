@@ -1,3 +1,5 @@
+#main
+#per utilizzare il bot, attivare xampp, successivamente startare il file 'carica.py' per poi far partire questo file (bot.py)
 TOKEN="6131316606:AAEPAdSdE3cd0rTciMEDKSa5zUxQvlLlHks"
 
 import requests
